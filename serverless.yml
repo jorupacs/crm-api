@@ -1,0 +1,33 @@
+service: crm
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  profile: serverless-admin
+  region: ap-southeast-1
+
+functions:
+  crmInsert:
+    handler: crm.process
+    memorySize: 128
+    description: Mimic save leads to CRM
+    events:
+      - http:
+          path: crm/add
+          method: post
+  crmEnrich:
+    handler: crm.process
+    memorySize: 128
+    description: Mimic enrich leads data
+    events:
+      - http:
+          path: crm/enrich
+          method: post
+  crmDialler:
+    handler: crm.process
+    memorySize: 128
+    description: Mimic sending leads to dialler
+    events:
+      - http:
+          path: crm/dialler
+          method: post
